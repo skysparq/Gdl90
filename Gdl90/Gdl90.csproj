@@ -4,6 +4,14 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
+        <Version>0.1.0</Version>
+        <Title>GDL90</Title>
+        <Authors>Skysparq</Authors>
+        <Copyright>2025</Copyright>
+        <PackageProjectUrl>https://github.com/skysparq/Gdl90</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/skysparq/Gdl90</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseUrl>https://github.com/skysparq/Gdl90/blob/main/LICENSE</PackageLicenseUrl>
     </PropertyGroup>
 
 </Project>

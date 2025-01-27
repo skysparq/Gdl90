@@ -76,9 +76,6 @@ public class Gdl90Manager
         {
             SendMsg();
         }
-
-        _bufferIndex = 0;
-        _startedMsg = false;
     }
 
     private void SendMsg()

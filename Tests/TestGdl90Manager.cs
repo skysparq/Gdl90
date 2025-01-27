@@ -104,4 +104,39 @@ public class Tests
         gdl90.Process(heartbeat);
         Assert.That(actual.Count, Is.EqualTo(0));
     }
+
+    [Test]
+    public void TestMultipleMessages()
+    {
+        var payload = new byte[]{0x7E, 0x00, 0x81, 0x41, 0xDB, 0xD0, 0x08, 0x02, 0xB3, 0x8B, 0x7E, 0x7E, 0x00, 0x81, 0x41, 0xDB, 0xD0, 0x08, 0x02, 0xB3, 0x8B, 0x7E};
+        var actual = new List<byte[]>();
+        var gdl90 = new Gdl90Manager();
+        gdl90.NewMessage += (_, msg) =>
+        {
+            actual.Add(msg);
+        };
+        gdl90.Process(payload);
+        Assert.That(actual.Count, Is.EqualTo(2));
+        var expected = new byte[] { 0x00, 0x81, 0x41, 0xDB, 0xD0, 0x08, 0x02 };
+        foreach (var msg in actual)
+        {
+            Assert.That(msg, Is.EqualTo(expected));
+        }
+    }
+    
+    [Test]
+    public void TestFirstMessageIsTooShort()
+    {
+        var payload = new byte[]{0x7E, 0x8B, 0x7E, 0x7E, 0x00, 0x81, 0x41, 0xDB, 0xD0, 0x08, 0x02, 0xB3, 0x8B, 0x7E};
+        var actual = new List<byte[]>();
+        var gdl90 = new Gdl90Manager();
+        gdl90.NewMessage += (_, msg) =>
+        {
+            actual.Add(msg);
+        };
+        gdl90.Process(payload);
+        Assert.That(actual.Count, Is.EqualTo(1));
+        var expected = new byte[] { 0x00, 0x81, 0x41, 0xDB, 0xD0, 0x08, 0x02 };
+        Assert.That(actual[0], Is.EqualTo(expected));
+    }
 }
